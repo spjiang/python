@@ -18,13 +18,32 @@ docker push daocloud.io/spjiang_coder/python-cgi-apache:v1.0
 docker rmi  python-cgi-apache:v1
 
 启动容器
-docker run -p 8889:80 --name cgipython -d python-cgi-apache:v1
+docker run -p 8889:80  -v ~/wwwroot/python/python:/var/www/html --name cgipython -d python-cgi-apache:v1
 docker run -p 8889:80 --name cgipython  python-cgi-apache:v1
 
+docker rm $(docker ps -aq)
 
 ------------------------------Aliyun---------------------------
 docker login registry.cn-hangzhou.aliyuncs.com
 docker login aliyun.com
 spjiang@aliyun.com/spjiang1988
-docker tag c798ca225f46 registry.cn-hangzhou.aliyuncs.com/python_cgi/python-cgi-apache:v1.0
+docker tag e34ebb8d908e registry.cn-hangzhou.aliyuncs.com/python_cgi/python-cgi-apache:v1.0
 docker push registry.cn-hangzhou.aliyuncs.com/python_cgi/python-cgi-apache:v1.0
+
+------------apache2-----------
+/usr/sbin/apache2ctl -D FOREGROUND
+service apache2 start
+docker run -it ec812c90843e /bin/bash
+
+docker exec -it ec812c90843e /bin/bash
+
+#重启 apache
+sudo /etc/init.d/apache2 restart
+#开启 apache
+sudo /etc/init.d/apache2 start
+#关闭 apache
+sudo /etc/init.d/apache2 stop
+
+
+docker stop 65b1bc64a9e4 | docker rm $(docker ps -aq) | docker rmi  python-cgi-apache:v1
+docker build --no-cache=false -t python-cgi-apache:v1 -f ./docker-build/cgi/Dockerfile  .
