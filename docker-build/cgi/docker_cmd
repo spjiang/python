@@ -27,7 +27,7 @@ docker rm $(docker ps -aq)
 docker login registry.cn-hangzhou.aliyuncs.com
 docker login aliyun.com
 spjiang@aliyun.com/spjiang1988
-docker tag e34ebb8d908e registry.cn-hangzhou.aliyuncs.com/python_cgi/python-cgi-apache:v1.0
+docker tag ad4620f98318 registry.cn-hangzhou.aliyuncs.com/python_cgi/python-cgi-apache:v1.0
 docker push registry.cn-hangzhou.aliyuncs.com/python_cgi/python-cgi-apache:v1.0
 
 ------------apache2-----------
